@@ -21,9 +21,19 @@ __Role:__
 
 You will have to add the `user/selfedit` policy to your users role.
 
+__Information__
+
+The field `user_account.enabled` will never be editable for the user to avoid user disabling himself.
+
 ## Extra configuration ##
 
-Example of a custumized forms:
+You can customize the user self edit form creating multiple version of this form.
+
+For example, you could need to create 2 pages:
+- A profile edition page
+- A password edition page
+
+Example of a customized forms:
 
 ```
 onaxis_ez_platform_extra:
