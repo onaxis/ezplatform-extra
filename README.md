@@ -6,6 +6,20 @@ __Using composer:__
 
 `composer require onaxis/ezplatform-extra`
 
+__Add the bundle to your application__
+
+```
+// app/AppKernel.php
+public function registerBundles()
+{
+    return array(
+        // ...
+        new Onaxis\EzPlatformExtraBundle\OnaxisEzPlatformExtraBundle(),
+        // ...
+    );
+}
+```
+
 __Routing:__
 
 Add the following in your routing.yml file:
