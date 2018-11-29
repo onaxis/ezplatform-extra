@@ -73,9 +73,9 @@ The previous configuration enable the following URLs:
 This is how to generate these routes:
 
 ```
-<a href="{{ path('onaxis_ezplatform_extra.user.selfedit', {'filter': 'profile'}) }}">Home</a>
-<a href="{{ path('onaxis_ezplatform_extra.user.selfedit', {'filter': 'account'}) }}">Contact</a>
-<a href="{{ path('onaxis_ezplatform_extra.user.selfedit', {'filter': 'password'}) }}">Privacy</a>
+<a href="{{ path('onaxis_ezplatform_extra.user.selfedit', {'filter': 'profile'}) }}">Edit my profile</a>
+<a href="{{ path('onaxis_ezplatform_extra.user.selfedit', {'filter': 'account'}) }}">Edit my account</a>
+<a href="{{ path('onaxis_ezplatform_extra.user.selfedit', {'filter': 'password'}) }}">Change my password</a>
 ```
 
 To know available fields, use the following command:
