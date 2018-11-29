@@ -102,13 +102,13 @@ To be aware of fields of another content type, just pass a user content id:
 __Output example:__
 
 ```
-User Content ID:    73
+User Content ID:    80
 Content Type ID:    13
-Content Identifier: spaceobs_user
+Content Identifier: member_user
 ----------------------------
 
- - firstname
- - lastname
+ - first_name
+ - last_name
  - user_account
  - user_account.username
  - user_account.password
