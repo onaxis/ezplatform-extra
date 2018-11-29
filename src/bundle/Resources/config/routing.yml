@@ -1,0 +1,3 @@
+onaxis_ezplatform_extra.user.selfedit:
+    path:     /user/selfedit/{filter}
+    defaults: { _controller: Onaxis\EzPlatformExtraBundle\Controller\UserController:selfEditAction, filter: 'none' }

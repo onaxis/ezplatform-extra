@@ -1,0 +1,14 @@
+services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Onaxis\EzPlatformExtraBundle\Controller\UserController:
+        arguments:
+            - "@ezpublish.api.service.content_type"
+            - '@eZ\Publish\API\Repository\PermissionResolver'
+            - "@ezpublish.api.service.user"
+            - "@ezpublish.api.repository"
+            - "@ezrepoforms.action_dispatcher.user"
