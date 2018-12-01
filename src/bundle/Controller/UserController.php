@@ -44,9 +44,9 @@ class UserController extends Controller
     /** @var array */
     private $filters_config;
 
-    private const FILTER_NONE = 'none';
-    private const FILTER_TYPE_INCLUDE_EXCLUDE = 'include/exclude';
-    private const FILTER_TYPE_EXCLUDE_INCLUDE = 'exclude/include';
+    const FILTER_NONE = 'none';
+    const FILTER_TYPE_INCLUDE_EXCLUDE = 'include/exclude';
+    const FILTER_TYPE_EXCLUDE_INCLUDE = 'exclude/include';
 
     public function __construct(
         ContentTypeService $contentTypeService,
@@ -139,6 +139,7 @@ class UserController extends Controller
             'languageCode' => $language,
             'contentType' => $contentType,
             'user' => $user,
+            'filter' => $filter
         ]);
     }
 
