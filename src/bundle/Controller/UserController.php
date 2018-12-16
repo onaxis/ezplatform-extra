@@ -20,6 +20,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class UserController extends Controller
 {
@@ -44,17 +46,36 @@ class UserController extends Controller
     /** @var array */
     private $filters_config;
 
+    /** @var Session $session */
+    protected $session;
+
+    /** @var TranslatorInterface $translator */
+    protected $translator;
+
     const FILTER_NONE = 'none';
     const FILTER_TYPE_INCLUDE_EXCLUDE = 'include/exclude';
     const FILTER_TYPE_EXCLUDE_INCLUDE = 'exclude/include';
 
+    /**
+     * UserController constructor.
+     * @param ContentTypeService $contentTypeService
+     * @param PermissionResolver $permissionResolver
+     * @param UserService $userService
+     * @param Repository $repository
+     * @param ActionDispatcherInterface $userActionDispatcher
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Session $session
+     * @param TranslatorInterface $translator
+     */
     public function __construct(
         ContentTypeService $contentTypeService,
         PermissionResolver $permissionResolver,
         UserService $userService,
         Repository $repository,
         ActionDispatcherInterface $userActionDispatcher,
-        UrlGeneratorInterface $urlGenerator
+        UrlGeneratorInterface $urlGenerator,
+        Session $session,
+        TranslatorInterface $translator
     ) {
         $this->contentTypeService = $contentTypeService;
         $this->permissionResolver = $permissionResolver;
@@ -62,6 +83,8 @@ class UserController extends Controller
         $this->userService = $userService;
         $this->userActionDispatcher = $userActionDispatcher;
         $this->urlGenerator = $urlGenerator;
+        $this->session = $session;
+        $this->translator = $translator;
     }
 
     /**
@@ -115,12 +138,6 @@ class UserController extends Controller
             $field->get('value')->remove('enabled');
         }
 
-        $available_fields = $this->getAvailableFields($form);
-
-        //echo '<pre>';
-        //print_r($available_fields);
-        //exit;
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && null !== $form->getClickedButton()) {
@@ -130,6 +147,12 @@ class UserController extends Controller
             });
 
             if ($response = $this->userActionDispatcher->getResponse()) {
+
+                $this->session->getFlashBag()->add('success', array(
+                    'title' => $this->translator->trans('onaxis_ezplatform_extra.user.selfedit.confirm.title'),
+                    'message' => $this->translator->trans('onaxis_ezplatform_extra.user.selfedit.confirm.message')
+                ));
+
                 return $response;
             }
         }
@@ -225,7 +248,6 @@ class UserController extends Controller
         foreach ($available_fields as $available_field){
             $found = false;
             foreach($this->filters_config[$filter]['include'] as $include_pattern){
-                //if (($filter === self::FILTER_TYPE_INCLUDE_EXCLUDE && $include_pattern === '*') || strpos($available_field, $include_pattern) === 0) {
                 if ($include_pattern === '*' || strpos($available_field, $include_pattern) === 0) {
                     $found = true;
                 }
@@ -262,12 +284,6 @@ class UserController extends Controller
      */
     private function removeFields(\Symfony\Component\Form\FormInterface $form, array $fields_to_remove)
     {
-        /*
-        echo '<pre>';
-        print_r($fields_to_remove);
-        exit;
-        */
-
         foreach($fields_to_remove as $field_to_remove){
             $this->removeField($form, $field_to_remove);
         }
