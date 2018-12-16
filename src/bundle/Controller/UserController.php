@@ -43,14 +43,14 @@ class UserController extends Controller
     /** @var UrlGeneratorInterface */
     private $urlGenerator;
 
-    /** @var array */
-    private $filters_config;
-
     /** @var Session $session */
     protected $session;
 
     /** @var TranslatorInterface $translator */
     protected $translator;
+
+    /** @var array */
+    private $filters_config;
 
     const FILTER_NONE = 'none';
     const FILTER_TYPE_INCLUDE_EXCLUDE = 'include/exclude';

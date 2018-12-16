@@ -12,5 +12,6 @@ services:
             - "@ezpublish.api.service.user"
             - "@ezpublish.api.repository"
             - "@ezrepoforms.action_dispatcher.user"
+            - '@ezpublish.urlalias_generator'
             - '@session'
             - '@translator'
